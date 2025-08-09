@@ -164,7 +164,7 @@ const Dashboard = ({ user, onLogout }) => {
         {/* Welcome Section */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-slate-800 mb-2">
-            Welcome back, {user.name}! ✈️
+            Welcome!!, {user.name}! ✈️
           </h1>
           <p className="text-slate-600">
             Ready to discover your next adventure? Let AI help you plan the perfect trip.
