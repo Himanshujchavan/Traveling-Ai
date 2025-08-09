@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import Loader from './components/Loader';
 import AuthForm from './components/AuthForm';
 import Dashboard from './components/Dashboard';
+import TravelPlanner from './components/Budget';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -31,7 +32,14 @@ function App() {
     return <AuthForm onAuthComplete={handleAuthComplete} />;
   }
 
-  return <Dashboard user={user} onLogout={handleLogout} />;
+  return ( 
+  <div>
+  
+  <Dashboard user={user} onLogout={handleLogout} />
+  
+  <TravelPlanner />
+  </div>
+  )
 }
 
 export default App;
