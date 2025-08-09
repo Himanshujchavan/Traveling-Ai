@@ -2,8 +2,9 @@
 import React, { useState } from 'react';
 import Loader from './components/Loader';
 import AuthForm from './components/AuthForm';
-import Dashboard from './components/Dashboard';
-import TravelPlanner from './components/Budget';
+import PacknGoUI from './components/UI'
+
+
 
 function App() {
   const [user, setUser] = useState(null);
@@ -34,10 +35,8 @@ function App() {
 
   return ( 
   <div>
-  
-  <Dashboard user={user} onLogout={handleLogout} />
-  
-  <TravelPlanner />
+    <PacknGoUI/>
+
   </div>
   )
 }
