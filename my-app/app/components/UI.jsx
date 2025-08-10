@@ -4,7 +4,14 @@
   Polished, production-ready React JSX component for PacknGo (single-file demo).
   - TailwindCSS utility classes used for styling (assumes Tailwind is set up in host project).
   - WHEN (date only), WHERE (from, to), HOW (transport modes with approx expense).
-  - Multiple price-tracking cards with realtime simulation.
+  - Multiple price-tracking ca                <div className="w-12 h-12 bg-gradient-to-br from-amber-500 to-orange-600 rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+                  <TrendingDown className="w-6 h-6 text-white animate-pulse" />
+                </div>
+                <h3 className="text-xl font-bold text-slate-900 group-hover:text-amber-700 transition-colors duration-300">Price Tracking</h3>
+              </div>
+              <div className="text-sm text-amber-600 bg-amber-50 px-3 py-1 rounded-full font-medium flex items-center gap-2">
+                <Activity className="w-3 h-3 animate-pulse" />
+                Live Updatesth realtime simulation.
   - Localized activities integrated into Personalized Itinerary.
   - Group Trip Coordination & Cost-splitting preserved.
 
@@ -12,10 +19,16 @@
 */
 
 import React, { useState, useEffect, useRef } from 'react'
+import { 
+  Plane, Calendar, MapPin, DollarSign, TrendingDown, Users, 
+  Bell, HelpCircle, MessageCircle, Target, Zap, Activity,
+  Navigation, Clock, Star, RefreshCw, Save, Trash2
+} from 'lucide-react'
 
 import Alerts from './Alerts'
 import Feedback from './Feedback'
 import FAQ from './FAQ'
+import AnimatedLogo from './Animatedlogo'
 
 
 export default function PacknGoUI() {
@@ -191,37 +204,93 @@ export default function PacknGoUI() {
 
   // --- UI ---
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white via-blue-300 to-purple-800 text-slate-900 p-6 font-sans">
-      <header className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
-        <div>
-          <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">PacknGo</h1>
-          <div className="text-sm text-slate-500">Professional & trustworthy travel planning</div>
+    <div className="min-h-screen bg-gradient-to-br from-sky-50 via-blue-50 to-indigo-100 text-slate-900 p-6 font-sans">
+      <style jsx>{`
+        @keyframes fade-in {
+          from { opacity: 0; transform: translateY(10px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+          animation: fade-in 0.5s ease-out;
+        }
+      `}</style>
+      <header className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
+        <div className="flex items-center gap-4">
+          <AnimatedLogo 
+            size={180}
+            colorPrimary="#0EA5E9"
+            colorAccent="#F59E0B"
+            colorDark="#0F172A"
+            autoPlay={true}
+          />
+          <div>
+            <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">PacknGo</h1>
+            <div className="text-sm text-slate-600">Professional & trustworthy travel planning</div>
+          </div>
         </div>
         <div className="flex items-center gap-4">
-          <div className="text-sm text-slate-500 hidden sm:block">Trusted by travelers • Secure payments • 24/7 support</div>
-         
+          <div className="text-sm text-slate-600 hidden sm:block">Trusted by travelers • Secure payments • 24/7 support</div>
         </div>
       </header>
 
-      {/* Plan panel (WHEN / WHERE / HOW) */}
-      <section className="bg-white rounded-2xl shadow-sm p-5 mb-6 border border-gray-100">
-        <h2 className="text-lg font-semibold mb-4">Plan a Trip — WHEN • WHERE • HOW</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="space-y-2">
-            <label className="text-xs text-slate-600 font-medium">When — Date</label>
-            <input type="date" value={whenDate} onChange={e => setWhenDate(e.target.value)} className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-200" />
+      {/* Plan Trip Section - Hero Card */}
+      <section className="bg-white/90 backdrop-blur-sm rounded-3xl shadow-xl p-8 mb-8 border border-sky-200/50 hover:shadow-2xl transition-all duration-500 group">
+        <div className="flex items-center gap-4 mb-6">
+          <div className="w-12 h-12 bg-gradient-to-br from-sky-500 to-blue-600 rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+            <Plane className="w-6 h-6 text-white animate-pulse" />
+          </div>
+          <div className="flex-1">
+            <h2 className="text-2xl font-bold text-slate-900 group-hover:text-sky-700 transition-colors duration-300">Plan Your Journey</h2>
+            <div className="text-sm text-sky-600 bg-sky-50 px-4 py-1 rounded-full inline-flex items-center gap-2 mt-2">
+              <Activity className="w-3 h-3 animate-pulse" />
+              WHEN • WHERE • HOW
+            </div>
+          </div>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="space-y-3 group/item">
+            <label className="text-sm font-semibold text-slate-700 flex items-center gap-2">
+              <Calendar className="w-4 h-4 text-sky-600 group-hover/item:animate-bounce" />
+              When — Travel Date
+            </label>
+            <input 
+              type="date" 
+              value={whenDate} 
+              onChange={e => setWhenDate(e.target.value)} 
+              className="w-full px-4 py-3 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all bg-white shadow-sm hover:shadow-md group-hover/item:border-sky-400" 
+            />
           </div>
 
-          <div className="space-y-2">
-            <label className="text-xs text-slate-600 font-medium">Where — From</label>
-            <input placeholder="Origin city or airport" value={fromPlace} onChange={e => setFromPlace(e.target.value)} className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-200" />
-            <label className="text-xs text-slate-600 font-medium">To</label>
-            <input placeholder="Destination city or airport" value={toPlace} onChange={e => setToPlace(e.target.value)} className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-200" />
+          <div className="space-y-3 group/item">
+            <label className="text-sm font-semibold text-slate-700 flex items-center gap-2">
+              <MapPin className="w-4 h-4 text-sky-600 group-hover/item:animate-bounce" />
+              Where — Route
+            </label>
+            <input 
+              placeholder="From: Origin city or airport" 
+              value={fromPlace} 
+              onChange={e => setFromPlace(e.target.value)} 
+              className="w-full px-4 py-3 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all bg-white shadow-sm hover:shadow-md group-hover/item:border-sky-400" 
+            />
+            <input 
+              placeholder="To: Destination city or airport" 
+              value={toPlace} 
+              onChange={e => setToPlace(e.target.value)} 
+              className="w-full px-4 py-3 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all bg-white shadow-sm hover:shadow-md group-hover/item:border-sky-400" 
+            />
           </div>
 
-          <div className="space-y-2">
-            <label className="text-xs text-slate-600 font-medium">How — Mode of transport</label>
-            <select value={selectedMode} onChange={e => setSelectedMode(e.target.value)} className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-200">
+          <div className="space-y-3 group/item">
+            <label className="text-sm font-semibold text-slate-700 flex items-center gap-2">
+              <Navigation className="w-4 h-4 text-sky-600 group-hover/item:animate-bounce" />
+              How — Transport Mode
+            </label>
+            <select 
+              value={selectedMode} 
+              onChange={e => setSelectedMode(e.target.value)} 
+              className="w-full px-4 py-3 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all bg-white shadow-sm hover:shadow-md group-hover/item:border-sky-400"
+            >
               <option>Flight</option>
               <option>Train</option>
               <option>Car</option>
@@ -229,146 +298,318 @@ export default function PacknGoUI() {
               <option>Bike</option>
             </select>
 
-            <div className="mt-3 flex gap-2">
-              <button onClick={onCalculateEstimate} className="px-3 py-2 bg-blue-600 text-white rounded-md shadow-sm hover:bg-blue-700">Estimate Cost</button>
-              <button onClick={onPlanTrip} className="px-3 py-2 bg-green-600 text-white rounded-md shadow-sm hover:bg-green-700">Plan & Track</button>
+            <div className="flex gap-3 mt-4">
+              <button 
+                onClick={onCalculateEstimate} 
+                className="flex-1 px-4 py-3 bg-gradient-to-r from-sky-500 to-blue-600 text-white rounded-xl font-semibold hover:from-sky-600 hover:to-blue-700 transition-all duration-200 shadow-md hover:shadow-lg flex items-center justify-center gap-2 group/btn"
+              >
+                <DollarSign className="w-4 h-4 group-hover/btn:animate-pulse" />
+                Estimate
+              </button>
+              <button 
+                onClick={onPlanTrip} 
+                className="flex-1 px-4 py-3 bg-gradient-to-r from-emerald-500 to-green-600 text-white rounded-xl font-semibold hover:from-emerald-600 hover:to-green-700 transition-all duration-200 shadow-md hover:shadow-lg flex items-center justify-center gap-2 group/btn"
+              >
+                <Target className="w-4 h-4 group-hover/btn:animate-pulse" />
+                Plan & Track
+              </button>
             </div>
 
             {estimatedCost != null && (
-              <div className="mt-3 bg-slate-50 p-3 rounded-md text-sm border">
-                <div className="text-xs text-slate-500">Estimate for <strong>{selectedMode}</strong> on <strong>{searchRouteName || (fromPlace + ' → ' + toPlace)}</strong>:</div>
-                <div className="text-lg font-semibold mt-1">{formatRupee(estimatedCost)}</div>
+              <div className="mt-4 bg-gradient-to-r from-sky-50 to-blue-50 p-4 rounded-xl border border-sky-200 shadow-sm animate-fade-in">
+                <div className="text-sm text-slate-600 mb-1 flex items-center gap-2">
+                  <Zap className="w-3 h-3 text-sky-600" />
+                  Estimated cost for <span className="font-semibold text-sky-700">{selectedMode}</span>
+                </div>
+                <div className="text-sm text-slate-500 mb-2">{searchRouteName || (fromPlace + ' → ' + toPlace)}</div>
+                <div className="text-2xl font-bold text-sky-700 flex items-center gap-2">
+                  {formatRupee(estimatedCost)}
+                  <Activity className="w-5 h-5 animate-pulse" />
+                </div>
               </div>
             )}
           </div>
         </div>
       </section>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Price tracking column */}
-        <div className="space-y-4">
-          <div className="bg-white p-4 rounded-xl shadow border">
-            <div className="flex justify-between items-center mb-3">
-              <h3 className="text-lg font-semibold">📉 Price Tracking</h3>
-              <div className="text-sm text-slate-500">Watchlist • Live updates</div>
+      {/* Main Content Grid */}
+      <div className="grid grid-cols-1 xl:grid-cols-12 gap-8 mb-8">
+        
+        {/* Price Tracking Card */}
+        <div className="xl:col-span-5 space-y-6">
+          <div className="bg-white/90 backdrop-blur-sm rounded-3xl shadow-xl p-6 border border-sky-200/50">
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 bg-gradient-to-br from-amber-500 to-orange-600 rounded-lg flex items-center justify-center">
+                  <span className="text-white font-bold text-sm">�</span>
+                </div>
+                <h3 className="text-xl font-bold text-slate-900">Price Tracking</h3>
+              </div>
+              <div className="text-sm text-amber-600 bg-amber-50 px-3 py-1 rounded-full font-medium">Live Updates</div>
             </div>
-            <p className="text-sm text-slate-500 mb-4">Multiple destinations with dynamic prices. Click "Remove" to stop tracking.</p>
-            <ul className="space-y-3">
+            
+            <p className="text-slate-600 mb-6">Monitor multiple destinations with real-time price updates and alerts.</p>
+            
+            <div className="space-y-4 max-h-96 overflow-y-auto">
               {tracked.map(item => (
-                <li key={item.id} className="p-3 border rounded-lg flex justify-between items-start hover:shadow-sm transition">
-                  <div>
-                    <div className="font-medium text-slate-800">{item.route}</div>
-                    <div className="text-xs text-slate-500 mt-1">Mode: {item.mode} • From: {item.from} • To: {item.to}</div>
-                  </div>
-                  <div className="text-right">
-                    <div className="text-lg font-bold text-blue-600">{formatRupee(item.price)}</div>
-                    <div className="flex gap-2 mt-2 justify-end">
-                      <button onClick={() => triggerManualDrop(item.id)} className="text-xs px-2 py-1 rounded bg-amber-50">Sim drop</button>
-                      <button onClick={() => removeTrack(item.id)} className="text-xs px-2 py-1 rounded bg-red-50">Remove</button>
+                <div key={item.id} className="p-4 bg-gradient-to-r from-slate-50 to-sky-50 rounded-2xl border border-sky-100 hover:shadow-md transition-all duration-200">
+                  <div className="flex justify-between items-start">
+                    <div className="flex-1">
+                      <div className="font-semibold text-slate-800 mb-1">{item.route}</div>
+                      <div className="text-sm text-slate-500 mb-2">
+                        <span className="inline-block bg-sky-100 text-sky-700 px-2 py-1 rounded-full text-xs font-medium mr-2">{item.mode}</span>
+                        {item.from} → {item.to}
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-2xl font-bold text-sky-700 mb-2">{formatRupee(item.price)}</div>
+                      <div className="flex gap-2">
+                        <button 
+                          onClick={() => triggerManualDrop(item.id)} 
+                          className="text-xs px-3 py-1 rounded-full bg-amber-100 text-amber-700 hover:bg-amber-200 transition-colors flex items-center gap-1 group/btn"
+                        >
+                          <TrendingDown className="w-3 h-3 group-hover/btn:animate-bounce" />
+                          Drop
+                        </button>
+                        <button 
+                          onClick={() => removeTrack(item.id)} 
+                          className="text-xs px-3 py-1 rounded-full bg-red-100 text-red-700 hover:bg-red-200 transition-colors flex items-center gap-1 group/btn"
+                        >
+                          <Trash2 className="w-3 h-3 group-hover/btn:animate-pulse" />
+                          Remove
+                        </button>
+                      </div>
                     </div>
                   </div>
-                </li>
+                </div>
               ))}
-            </ul>
-
-            <div className="mt-4 border-t pt-3 text-sm text-slate-600">Tip: Prices update automatically while realtime is on.</div>
-          </div>
-        
-          {/* <div className="bg-white p-4 rounded-xl shadow border">
-            <h3 className="text-lg font-semibold mb-3">🔔 Alerts</h3>
-            {alerts.length === 0 ? <div className="text-sm text-slate-500">No alerts</div> : (
-            
-              <ul className="space-y-2 text-sm max-h-56 overflow-auto">
-                {alerts.map((a, i) => <li key={i} className="bg-yellow-50 px-3 py-2 rounded">{a}</li>)}
-              </ul>
-
-           
-            )}
-          </div> */}
-        </div>
-          
-        
-
-        {/* Itinerary & Activities column (spans two columns) */}
-        <div className="lg:col-span-2 space-y-4">
-          <div className="bg-white p-4 rounded-xl shadow border">
-            <div className="flex justify-between items-center mb-2">
-              <h3 className="text-lg font-semibold">🗺️ Personalized Itinerary</h3>
-              <div className="text-sm text-slate-500">AI suggestions + localized activities</div>
             </div>
-            <p className="text-sm text-slate-600">Integrated suggestions tailored to your chosen destination.</p>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-              <div>
-                <h4 className="font-medium">Suggested Days</h4>
-                <ul className="list-disc pl-5 mt-2 text-sm space-y-1">
-                  {itinerary.map((d, i) => <li key={i}>{d}</li>)}
-                </ul>
-                <div className="mt-3 flex gap-2">
-                  <button onClick={() => { applyDestinationToItinerary(toPlace); }} className="px-3 py-2 rounded bg-blue-50">Regenerate</button>
-                  <button onClick={() => pushAlert('Itinerary saved (demo)')} className="px-3 py-2 rounded bg-green-50">Save</button>
+            <div className="mt-6 pt-4 border-t border-sky-200">
+              <div className="text-sm text-slate-600 flex items-center gap-2">
+                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                Auto-updates enabled • Tracking {tracked.length} routes
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Itinerary & Activities */}
+        <div className="xl:col-span-7 space-y-6">
+          
+          {/* Personalized Itinerary Card */}
+          <div className="bg-white/90 backdrop-blur-sm rounded-3xl shadow-xl p-6 border border-sky-200/50">
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 bg-gradient-to-br from-emerald-500 to-green-600 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                  <MapPin className="text-white w-4 h-4" />
+                </div>
+                <h3 className="text-xl font-bold text-slate-900">Personalized Itinerary</h3>
+              </div>
+              <div className="text-sm text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full font-medium">AI Powered</div>
+            </div>
+
+            <p className="text-slate-600 mb-6">Smart suggestions tailored to your destination with localized activities.</p>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <div className="space-y-4">
+                <h4 className="font-semibold text-slate-800 flex items-center gap-2">
+                  <Clock className="text-emerald-600 w-4 h-4" /> Suggested Days
+                </h4>
+                <div className="space-y-3">
+                  {itinerary.map((d, i) => (
+                    <div key={i} className="p-3 bg-gradient-to-r from-emerald-50 to-green-50 rounded-xl border border-emerald-100">
+                      <div className="text-sm font-medium text-slate-800">{d}</div>
+                    </div>
+                  ))}
+                </div>
+                <div className="flex gap-3 mt-4">
+                  <button 
+                    onClick={() => { applyDestinationToItinerary(toPlace); }} 
+                    className="px-4 py-2 bg-emerald-100 text-emerald-700 rounded-xl hover:bg-emerald-200 transition-all duration-300 font-medium text-sm flex items-center gap-2 group hover:scale-105"
+                  >
+                    <RefreshCw className="w-3 h-3 group-hover:rotate-180 transition-transform duration-500" /> Regenerate
+                  </button>
+                  <button 
+                    onClick={() => pushAlert('Itinerary saved (demo)')} 
+                    className="px-4 py-2 bg-sky-100 text-sky-700 rounded-xl hover:bg-sky-200 transition-all duration-300 font-medium text-sm flex items-center gap-2 group hover:scale-105"
+                  >
+                    <Save className="w-3 h-3 group-hover:scale-110 transition-transform duration-300" /> Save Plan
+                  </button>
                 </div>
               </div>
 
-              <div>
-                <h4 className="font-medium">Localized Activity Suggestions</h4>
-                <p className="text-sm text-slate-500">Activities are pulled for <strong>{toPlace || 'your destination'}</strong>.</p>
-                <ul className="mt-2 space-y-2 text-sm">
+              <div className="space-y-4">
+                <h4 className="font-semibold text-slate-800 flex items-center gap-2">
+                  <Target className="text-emerald-600 w-4 h-4" /> Local Activities
+                </h4>
+                <p className="text-sm text-slate-500 mb-3">
+                  Curated for <span className="font-semibold text-emerald-600">{toPlace || 'your destination'}</span>
+                </p>
+                <div className="space-y-3">
                   {activities.map((a, idx) => (
-                    <li key={idx} className="p-2 border rounded flex justify-between items-center">
+                    <div key={idx} className="p-3 bg-gradient-to-r from-sky-50 to-blue-50 rounded-xl border border-sky-100 flex justify-between items-center group hover:shadow-md transition-all duration-300">
                       <div>
-                        <div className="font-medium">{a.title}</div>
-                        <div className="text-xs text-slate-500">{a.time}</div>
+                        <div className="font-medium text-slate-800 text-sm">{a.title}</div>
+                        <div className="text-xs text-slate-500 mt-1 flex items-center gap-1">
+                          <Clock className="w-3 h-3" /> {a.time}
+                        </div>
                       </div>
-                      <div>
-                        <button onClick={() => pushAlert(`Saved activity: ${a.title}`)} className="text-xs px-2 py-1 rounded bg-slate-100">Save</button>
-                      </div>
-                    </li>
+                      <button 
+                        onClick={() => pushAlert(`Saved activity: ${a.title}`)} 
+                        className="text-xs px-3 py-1 bg-sky-100 text-sky-700 rounded-full hover:bg-sky-200 transition-all duration-300 font-medium flex items-center gap-1 group-hover:scale-105"
+                      >
+                        <Star className="w-3 h-3 group-hover:fill-current transition-all duration-300" /> Save
+                      </button>
+                    </div>
                   ))}
-                </ul>
+                </div>
               </div>
             </div>
           </div>
 
-          <div className="bg-white p-4 rounded-xl shadow border my-11">
-            <h3 className="text-lg font-semibold mb-3">👥 Group Trip Coordination & Cost-splitting</h3>
-            <div className="flex gap-2 items-center">
-              <input type="number" value={totalCost} onChange={e => setTotalCost(e.target.value)} className="px-3 py-2 rounded w-36 border" />
-              <input type="number" value={numPeople} onChange={e => setNumPeople(e.target.value)} className="px-3 py-2 rounded w-20 border" />
-              <button onClick={splitCost} className="px-3 py-2 rounded bg-blue-50">Split</button>
+          {/* Group Trip Coordination Card */}
+          <div className="bg-white/90 backdrop-blur-sm rounded-3xl shadow-xl p-6 border border-sky-200/50">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-8 h-8 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <Users className="text-white w-4 h-4" />
+              </div>
+              <h3 className="text-xl font-bold text-slate-900">Group Trip & Cost Splitting</h3>
             </div>
-            {splitResult && <div className="mt-3 text-sm">{splitResult.people} people — each pays {formatRupee(splitResult.each)}</div>}
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
+              <div>
+                <label className="text-sm font-semibold text-slate-700 mb-2 block flex items-center gap-2">
+                  <DollarSign className="w-4 h-4" /> Total Cost
+                </label>
+                <input 
+                  type="number" 
+                  value={totalCost} 
+                  onChange={e => setTotalCost(e.target.value)} 
+                  className="w-full px-4 py-3 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all bg-white shadow-sm" 
+                  placeholder="Enter total amount"
+                />
+              </div>
+              <div>
+                <label className="text-sm font-semibold text-slate-700 mb-2 block flex items-center gap-2">
+                  <Users className="w-4 h-4" /> People
+                </label>
+                <input 
+                  type="number" 
+                  value={numPeople} 
+                  onChange={e => setNumPeople(e.target.value)} 
+                  className="w-full px-4 py-3 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all bg-white shadow-sm" 
+                  placeholder="Number of people"
+                />
+              </div>
+              <div>
+                <button 
+                  onClick={splitCost} 
+                  className="w-full px-4 py-3 bg-gradient-to-r from-purple-500 to-indigo-600 text-white rounded-xl font-semibold hover:from-purple-600 hover:to-indigo-700 transition-all duration-200 shadow-md flex items-center justify-center gap-2 group hover:scale-105"
+                >
+                  <Zap className="w-4 h-4 group-hover:rotate-12 transition-transform duration-300" /> Calculate Split
+                </button>
+              </div>
+            </div>
+            
+            {splitResult && (
+              <div className="mt-6 p-4 bg-gradient-to-r from-purple-50 to-indigo-50 rounded-xl border border-purple-200">
+                <div className="text-center">
+                  <div className="text-sm text-slate-600 mb-1">Split between {splitResult.people} people</div>
+                  <div className="text-2xl font-bold text-purple-700">
+                    {formatRupee(splitResult.each)} <span className="text-sm font-normal text-slate-500">per person</span>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
-        {/* Alerts, FAQ, and Feedback row */}
-<div className="grid grid-cols-1 lg:grid-cols-3 gap-4 my-5">
-  {/* Alerts */}
-  <div className="bg-white border border-gray-500 rounded-xl shadow-md p-6">
-    <h2 className="text-xl font-bold text-gray-800 mb-4"><Alerts/></h2>
-    <p className="text-gray-600">
-      Stay updated with price drops, flight delays, and new deals in real-time.
-    </p>
-  </div>
+      {/* Bottom Section - Service Cards */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+        
+        {/* Alerts Card */}
+        <div className="bg-white/90 backdrop-blur-sm rounded-3xl shadow-xl p-6 border border-sky-200/50 hover:shadow-2xl transition-all duration-300">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-10 h-10 bg-gradient-to-br from-red-500 to-pink-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+              <Bell className="text-white w-5 h-5" />
+            </div>
+            <h3 className="text-xl font-bold text-slate-900">Smart Alerts</h3>
+          </div>
+          <div className="mb-4">
+            <Alerts />
+          </div>
+          <p className="text-slate-600 text-sm leading-relaxed">
+            Stay updated with price drops, flight delays, weather alerts, and exclusive deals in real-time.
+          </p>
+          <div className="mt-4 flex items-center gap-2 text-sm text-red-600">
+            <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
+            Live monitoring active
+          </div>
+        </div>
 
-  {/* FAQ */}
-  <div className="bg-white border border-gray-500 rounded-xl shadow-md p-6">
-    <h2 className="text-xl font-bold text-gray-800 mb-4"><FAQ/></h2>
-    <p className="text-gray-600">
-      Find quick answers to the most common questions about travel planning.
-    </p>
-  </div>
+        {/* FAQ Card */}
+        <div className="bg-white/90 backdrop-blur-sm rounded-3xl shadow-xl p-6 border border-sky-200/50 hover:shadow-2xl transition-all duration-300">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-xl flex items-center justify-center">
+              <span className="text-white font-bold">❓</span>
+            </div>
+            <h3 className="text-xl font-bold text-slate-900">Help Center</h3>
+          </div>
+          <div className="mb-4">
+            <FAQ />
+          </div>
+          <p className="text-slate-600 text-sm leading-relaxed">
+            Find instant answers to common questions about travel planning, bookings, and our AI features.
+          </p>
+          <div className="mt-4 flex items-center gap-2 text-sm text-blue-600">
+            <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+            24/7 support available
+          </div>
+        </div>
 
-  {/* Feedback */}
-  <div className="bg-white border border-gray-500 rounded-xl shadow-md p-6">
-    <h2 className="text-xl font-bold text-gray-800 mb-4"><Feedback/></h2>
-    <p className="text-gray-600">
-      Share your experience and suggestions to help improve PacknGo.
-    </p>
-  </div>
-</div>
+        {/* Feedback Card */}
+        <div className="bg-white/90 backdrop-blur-sm rounded-3xl shadow-xl p-6 border border-sky-200/50 hover:shadow-2xl transition-all duration-300">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center">
+              <span className="text-white font-bold">💬</span>
+            </div>
+            <h3 className="text-xl font-bold text-slate-900">Your Voice</h3>
+          </div>
+          <div className="mb-4">
+            <Feedback />
+          </div>
+          <p className="text-slate-600 text-sm leading-relaxed">
+            Share your experience and suggestions to help us improve PacknGo for millions of travelers.
+          </p>
+          <div className="mt-4 flex items-center gap-2 text-sm text-green-600">
+            <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+            Your feedback matters
+          </div>
+        </div>
+      </div>
 
-      <footer className="mt-6 text-center text-sm text-slate-500">PacknGo — professional traveler-AI Tool</footer>
+      {/* Footer */}
+      <footer className="text-center py-6">
+        <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg p-6 border border-sky-200/50">
+          <div className="flex items-center justify-center gap-3 mb-3">
+            <div className="w-6 h-6 bg-gradient-to-br from-sky-500 to-blue-600 rounded-lg flex items-center justify-center">
+              <span className="text-white font-bold text-xs">✈️</span>
+            </div>
+            <span className="text-lg font-bold text-slate-900">PacknGo</span>
+          </div>
+          <p className="text-sm text-slate-600">
+            Professional AI-powered travel planning • Trusted by thousands of travelers worldwide
+          </p>
+          <div className="mt-3 flex items-center justify-center gap-6 text-xs text-slate-500">
+            <span>Secure Payments</span>
+            <span>•</span>
+            <span>24/7 Support</span>
+            <span>•</span>
+            <span>Global Coverage</span>
+          </div>
+        </div>
+      </footer>
     </div>
   )
 }

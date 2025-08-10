@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Eye, EyeOff, Mail, Lock, User, Plane, MapPin, Calendar } from 'lucide-react';
 import AnimatedLogo from './AnimatedLogo';
+import { AnimatedScene } from './Animatedscene';
 
 const AuthForm = ({ onAuthComplete }) => {
   const [isLogin, setIsLogin] = useState(true);
@@ -99,7 +100,7 @@ const AuthForm = ({ onAuthComplete }) => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-sky-50 via-blue-50 to-indigo-100 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-sky-50 via-blue-50 to-indigo-100 flex flex-col lg:flex-row">
       {/* Background decorative elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-20 left-10 w-32 h-32 bg-sky-200 rounded-full opacity-20 animate-pulse"></div>
@@ -107,19 +108,21 @@ const AuthForm = ({ onAuthComplete }) => {
         <div className="absolute top-1/2 left-1/4 w-24 h-24 bg-blue-200 rounded-full opacity-20 animate-pulse delay-500"></div>
       </div>
 
-      <div className="w-full max-w-md relative z-10">
+      {/* Left Panel - Auth Form */}
+      <div className="w-full lg:w-1/2 min-h-screen flex items-center justify-center p-8 lg:p-8 relative z-10">
+        <div className="w-full max-w-lg bg-white/90 backdrop-blur-sm rounded-3xl shadow-2xl p-6 lg:p-8 transition-all duration-300">
         {/* Logo Section */}
-        <div className="text-center mb-8">
-          <div className="flex justify-center mb-6">
+        <div className="mb-6 text-center lg:text-left">
+          <div className="flex justify-center lg:justify-start mb-4">
             <AnimatedLogo 
               ref={logoRef}
-              size={250}
+              size={200}
               colorPrimary="#0EA5E9"
               colorAccent="#F59E0B"
               colorDark="#0F172A"
             />
           </div>
-          <h1 className="text-3xl font-bold text-slate-800 mb-2">
+          <h1 className="text-2xl lg:text-3xl font-bold text-slate-800 mb-2">
             Welcome to PacknGo
           </h1>
           <p className="text-slate-600">
@@ -128,7 +131,7 @@ const AuthForm = ({ onAuthComplete }) => {
         </div>
 
         {/* Auth Form */}
-        <div className="bg-white rounded-2xl shadow-xl p-8 border border-slate-200">
+        <div className="bg-white rounded-2xl shadow-xl p-6 border border-slate-200">
           <div className="mb-6">
             <h2 className="text-2xl font-bold text-slate-800 mb-2">
               {isLogin ? 'Sign In' : 'Create Account'}
@@ -283,19 +286,27 @@ const AuthForm = ({ onAuthComplete }) => {
         </div>
 
         {/* Features Preview */}
-        <div className="mt-8 grid grid-cols-3 gap-4 text-center">
-          <div className="bg-white/70 backdrop-blur-sm rounded-lg p-4 border border-white/50">
-            <MapPin className="w-6 h-6 text-sky-600 mx-auto mb-2" />
+        <div className="mt-6 grid grid-cols-3 gap-3 text-center">
+          <div className="bg-white/70 backdrop-blur-sm rounded-lg p-3 border border-white/50">
+            <MapPin className="w-5 h-5 text-sky-600 mx-auto mb-1" />
             <p className="text-xs text-slate-600 font-medium">AI Trip Planning</p>
           </div>
-          <div className="bg-white/70 backdrop-blur-sm rounded-lg p-4 border border-white/50">
-            <Calendar className="w-6 h-6 text-sky-600 mx-auto mb-2" />
+          <div className="bg-white/70 backdrop-blur-sm rounded-lg p-3 border border-white/50">
+            <Calendar className="w-5 h-5 text-sky-600 mx-auto mb-1" />
             <p className="text-xs text-slate-600 font-medium">Smart Scheduling</p>
           </div>
-          <div className="bg-white/70 backdrop-blur-sm rounded-lg p-4 border border-white/50">
-            <Plane className="w-6 h-6 text-sky-600 mx-auto mb-2" />
+          <div className="bg-white/70 backdrop-blur-sm rounded-lg p-3 border border-white/50">
+            <Plane className="w-5 h-5 text-sky-600 mx-auto mb-1" />
             <p className="text-xs text-slate-600 font-medium">Flight Tracking</p>
           </div>
+        </div>
+        </div>
+      </div>
+
+      {/* Right Panel - Animated Scene */}
+      <div className="w-full lg:w-1/2 min-h-screen lg:min-h-0 relative flex items-center justify-center">
+        <div className="w-full h-full lg:h-screen">
+          <AnimatedScene />
         </div>
       </div>
     </div>
